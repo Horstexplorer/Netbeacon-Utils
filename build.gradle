@@ -10,26 +10,18 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    compileOnly group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
-    compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
-    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
-    compileOnly group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.66'
-    // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
-    compileOnly group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.66'
-    // https://mvnrepository.com/artifact/org.json/json
-    compileOnly group: 'org.json', name: 'json', version: '20200518'
-    // https://mvnrepository.com/artifact/club.minnced/discord-webhooks
-    compileOnly group: 'club.minnced', name: 'discord-webhooks', version: '0.4.1'
-    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-    compileOnly group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
-    // https://mvnrepository.com/artifact/org.postgresql/postgresql
-    compileOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
-    // https://mvnrepository.com/artifact/org.jooq/jooq
-    compileOnly group: 'org.jooq', name: 'jooq', version: '3.13.4'
-    // https://mvnrepository.com/artifact/org.jooq/jooq-meta
-    compileOnly group: 'org.jooq', name: 'jooq-meta', version: '3.13.4'
-    // https://mvnrepository.com/artifact/org.jooq/jooq-codegen
-    compileOnly group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
+    
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30' // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+    compileOnly group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.66' // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+    compileOnly group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.66' // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
+    compileOnly group: 'org.json', name: 'json', version: '20200518' // https://mvnrepository.com/artifact/org.json/json
+    compileOnly group: 'club.minnced', name: 'discord-webhooks', version: '0.4.1' // https://mvnrepository.com/artifact/club.minnced/discord-webhooks
+    compileOnly group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5' // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    compileOnly group: 'org.postgresql', name: 'postgresql', version: '42.2.16' // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    compileOnly group: 'org.jooq', name: 'jooq', version: '3.13.4' // https://mvnrepository.com/artifact/org.jooq/jooq
+    compileOnly group: 'org.jooq', name: 'jooq-meta', version: '3.13.4' // https://mvnrepository.com/artifact/org.jooq/jooq-meta
+    compileOnly group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4' // https://mvnrepository.com/artifact/org.jooq/jooq-codegen
+    compileOnly group: 'org.mindrot', name: 'jbcrypt', version: '0.4' // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+
 }
