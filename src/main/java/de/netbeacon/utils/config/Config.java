@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
@@ -44,6 +45,16 @@ public class Config {
         }else{
             config = new JSONObject(new String(Files.readAllBytes(file.toPath())));
         }
+    }
+
+    /**
+     * Creates a new config from a given stream
+     *
+     * @param inputStream inputStream
+     * @throws IOException if file does not exist or is not readable
+     */
+    public Config(InputStream inputStream) throws IOException {
+        config = new JSONObject(new String(inputStream.readAllBytes()));
     }
 
     /**
