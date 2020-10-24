@@ -32,13 +32,13 @@ public class JSONMatcher {
     /**
      * Checks if the structure of test matches the requires structure of specification
      *
-     * @param specification the predefined structure
      * @param test the object containing the data
+     * @param spec the predefined structure
      * @return boolean
      */
-    public static boolean structureMatch(JSONObject specification, JSONObject test) {
+    public static boolean structureMatch(JSONObject test, JSONObject spec) {
         // get keys
-        Set<String> specKeys = specification.keySet();
+        Set<String> specKeys = spec.keySet();
         Set<String> testKeys = test.keySet();
         // both contain different keys?
         if (!specKeys.containsAll(testKeys) || !testKeys.containsAll(specKeys)) {
@@ -46,15 +46,15 @@ public class JSONMatcher {
         }
         // both contain different values and types?
         for (String key : specKeys) {
-            if (specification.get(key).getClass() != test.get(key).getClass()) {
+            if (spec.get(key).getClass() != test.get(key).getClass()) {
                 return false;
             }
-            if (specification.get(key).getClass() == JSONObject.class) {
-                if(!structureMatch(specification.getJSONObject(key), test.getJSONObject(key))){
+            if (spec.get(key).getClass() == JSONObject.class) {
+                if(!structureMatch(spec.getJSONObject(key), test.getJSONObject(key))){
                     return false;
                 }
-            } else if (specification.get(key).getClass() == JSONArray.class) {
-                if(!structureMatch(specification.getJSONArray(key), test.getJSONArray(key))){
+            } else if (spec.get(key).getClass() == JSONArray.class) {
+                if(!structureMatch(spec.getJSONArray(key), test.getJSONArray(key))){
                     return false;
                 }
             }
@@ -66,24 +66,24 @@ public class JSONMatcher {
     /**
      * Checks if the structure of test matches the requires structure of specification
      *
-     * @param specification the predefined structure
      * @param test the object containing the data
+     * @param spec the predefined structure
      * @return boolean
      */
-    public static boolean structureMatch(JSONArray specification, JSONArray test) {
-        if(specification.isEmpty()){
+    public static boolean structureMatch(JSONArray test, JSONArray spec) {
+        if(spec.isEmpty()){
             return true;
         }
         for(Object o : test){
-            if (specification.get(0).getClass() != o.getClass()) {
+            if (spec.get(0).getClass() != o.getClass()) {
                 return false;
             }
-            if(specification.get(0).getClass() == JSONObject.class){
-                if(!structureMatch(specification.getJSONObject(0), (JSONObject) o)){
+            if(spec.get(0).getClass() == JSONObject.class){
+                if(!structureMatch(spec.getJSONObject(0), (JSONObject) o)){
                     return false;
                 }
-            }else if(specification.get(0).getClass() == JSONArray.class){
-                if(!structureMatch(specification.getJSONArray(0), (JSONArray) o)){
+            }else if(spec.get(0).getClass() == JSONArray.class){
+                if(!structureMatch(spec.getJSONArray(0), (JSONArray) o)){
                     return false;
                 }
             }
@@ -94,12 +94,12 @@ public class JSONMatcher {
     /**
      * Forces the given data to match the specification format
      *
-     * @param specification the predefined structure
      * @param data the object containing the data
+     * @param spec the predefined structure
      * @return JSONObject
      */
-    public static JSONObject structureUpgrade(JSONObject specification, JSONObject data){
-        Set<String> structSet = specification.keySet();
+    public static JSONObject structureUpgrade(JSONObject data, JSONObject spec){
+        Set<String> structSet = spec.keySet();
         JSONObject copy = new JSONObject(data.toString());
         // remove unnecessary structures
         for(String s : data.keySet()){
@@ -112,19 +112,19 @@ public class JSONMatcher {
         for(String key : structSet){
             // does it exist
             if(!copySet.contains(key)){
-                copy.put(key, specification.get(key));
+                copy.put(key, spec.get(key));
                 continue;
             }
             // is it of the same class
-            if(copy.get(key).getClass() != specification.get(key).getClass()){
-                copy.put(key, specification.get(key));
+            if(copy.get(key).getClass() != spec.get(key).getClass()){
+                copy.put(key, spec.get(key));
                 continue;
             }
             // if it is a json object or json array
             if(copy.get(key).getClass() == JSONObject.class){
-                copy.put(key, structureUpgrade(specification.getJSONObject(key), copy.getJSONObject(key)));
+                copy.put(key, structureUpgrade(spec.getJSONObject(key), copy.getJSONObject(key)));
             }else if(copy.get(key).getClass() == JSONArray.class){
-                copy.put(key, structureUpgrade(specification.getJSONArray(key), copy.getJSONArray(key)));
+                copy.put(key, structureUpgrade(spec.getJSONArray(key), copy.getJSONArray(key)));
             }
         }
         return copy;
@@ -133,26 +133,26 @@ public class JSONMatcher {
     /**
      * Forces the given data to match the specification format
      *
-     * @param specification the predefined structure
      * @param data the object containing the data
+     * @param spec the predefined structure
      * @return JSONArray
      */
-    public static JSONArray structureUpgrade(JSONArray specification, JSONArray data){
-        if(specification.isEmpty()){
+    public static JSONArray structureUpgrade(JSONArray data, JSONArray spec){
+        if(spec.isEmpty()){
             return data;
         }
         JSONArray copy = new JSONArray(data.toString());
         for(int i = 0; i < copy.length(); i++){
             // check types
-            if(specification.get(0).getClass() != copy.get(i).getClass()){
+            if(spec.get(0).getClass() != copy.get(i).getClass()){
                 copy.put(i, FakeVoid.class);
                 continue;
             }
             // if it is a json object or json array
             if(copy.get(i).getClass() == JSONObject.class){
-                copy.put(i, structureUpgrade(specification.getJSONObject(0), copy.getJSONObject(i)));
+                copy.put(i, structureUpgrade(spec.getJSONObject(0), copy.getJSONObject(i)));
             }else if(copy.get(i).getClass() == JSONArray.class){
-                copy.put(i, structureUpgrade(specification.getJSONArray(0), copy.getJSONArray(i)));
+                copy.put(i, structureUpgrade(spec.getJSONArray(0), copy.getJSONArray(i)));
             }
         }
         // remove null
