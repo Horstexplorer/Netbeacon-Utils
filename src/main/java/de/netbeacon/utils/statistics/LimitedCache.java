@@ -17,12 +17,13 @@
 package de.netbeacon.utils.statistics;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class LimitedCache<O> {
 
     private final int maxSite;
-    private final List<O> data = new ArrayList<>();
+    private final List<O> data = new LinkedList<>();
 
     public LimitedCache(int maxSize){
         this.maxSite = maxSize;
