@@ -72,7 +72,7 @@ public class DiscordWebhookAppender extends AppenderSkeleton {
                     .setUsername(config.getString("username"))
                     .setContent("**Log Report**\n"+stringBuilder.toString());
             webhookClient.send(webhookMessageBuilder.build());
-        }, 2, 2, TimeUnit.SECONDS);
+        }, 5, 5, TimeUnit.SECONDS);
     }
 
     @Override
