@@ -16,6 +16,9 @@
 
 package de.netbeacon.utils.shutdownhook;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -25,20 +28,22 @@ import java.util.Deque;
 public class ShutdownHook {
 
     private final Deque<IShutdown> shutdownDeque = new ArrayDeque<>();
-
+    private final Logger logger = LoggerFactory.getLogger(ShutdownHook.class);
     /**
      * Creates a new instance of this class and registers a new shutdown hook
      */
     public ShutdownHook(){
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
+            logger.warn("! Shutdown Hook Executed !");
             while(!shutdownDeque.isEmpty()){
-                IShutdown iShutdown = shutdownDeque.remove();
+                IShutdown iShutdown = shutdownDeque.removeLast();
                 try{
                     iShutdown.onShutdown();
                 }catch (Exception e){
-                    e.printStackTrace();
+                    logger.error("Failed To Shutdown "+iShutdown.getClass()+" ", e);
                 }
             }
+            logger.warn("! Shutdown Hook Finished Execution !");
         }));
     }
 
